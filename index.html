@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cortex — Intelligent CRM for Builders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #060810;
+  --deep: #0a0d18;
+  --surface: #10141f;
+  --surface2: #161b28;
+  --border: rgba(255,255,255,0.07);
+  --border-v: rgba(124,58,237,0.35);
+  --violet: #7c3aed;
+  --violet-hi: #9d5cf0;
+  --violet-dim: rgba(124,58,237,0.12);
+  --lavender: #a78bfa;
+  --snow: #f1f5f9;
+  --slate: #94a3b8;
+  --muted: #475569;
+  --emerald: #10b981;
+  --amber: #f59e0b;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--void);color:var(--snow);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--violet);border-radius:2px}
+::selection{background:rgba(124,58,237,0.3);color:#fff}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,8,16,0.85);backdrop-filter:blur(16px);border-bottom:0.5px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-wordmark{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--snow);letter-spacing:-.5px}
+.nav-wordmark span{color:var(--violet)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:13px;color:var(--slate);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--snow)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.btn-ghost{font-size:13px;font-weight:500;padding:7px 16px;border:0.5px solid var(--border-v);border-radius:6px;background:transparent;color:var(--lavender);cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-ghost:hover{background:var(--violet-dim)}
+.btn-solid{font-size:13px;font-weight:500;padding:7px 16px;border:none;border-radius:6px;background:var(--violet);color:#fff;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-solid:hover{background:var(--violet-hi)}
+
+/* HERO */
+.hero{min-height:100vh;padding:120px 2rem 80px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(124,58,237,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,0.04) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 30%,transparent 100%)}
+.hero-glow{position:absolute;width:700px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.13) 0%,transparent 70%);top:30%;left:50%;transform:translateX(-50%);z-index:0}
+.hero-content{position:relative;z-index:1;max-width:780px;text-align:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(124,58,237,0.1);border:0.5px solid var(--border-v);border-radius:20px;padding:5px 14px;margin-bottom:2rem;animation:fadeUp .5s ease both}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--violet);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.75)}}
+.hero-badge-text{font-size:12px;font-weight:500;color:var(--lavender);letter-spacing:.04em}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(44px,7vw,82px);font-weight:800;letter-spacing:-3px;line-height:1.0;color:var(--snow);margin-bottom:1.5rem;animation:fadeUp .5s .08s ease both}
+.hero-h1 .accent{color:var(--violet)}
+.hero-h1 .dim{color:var(--slate)}
+.hero-sub{font-size:17px;font-weight:300;color:var(--slate);line-height:1.7;max-width:520px;margin:0 auto 2.5rem;animation:fadeUp .5s .16s ease both}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:3rem;animation:fadeUp .5s .24s ease both}
+.btn-hero-p{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:12px 28px;border-radius:8px;background:var(--violet);color:#fff;border:none;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-p:hover{background:var(--violet-hi);transform:translateY(-1px)}
+.btn-hero-s{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;padding:12px 28px;border-radius:8px;background:transparent;color:var(--slate);border:0.5px solid var(--border);cursor:pointer;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-s:hover{border-color:var(--border-v);color:var(--snow)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;border-top:0.5px solid var(--border);padding-top:2rem;animation:fadeUp .5s .32s ease both}
+.stat-n{font-family:'Syne',sans-serif;font-size:28px;font-weight:700;color:var(--snow);letter-spacing:-1px}
+.stat-n span{color:var(--violet)}
+.stat-l{font-size:12px;color:var(--muted);margin-top:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* DASHBOARD PREVIEW */
+.hero-dash{margin-top:4rem;position:relative;z-index:1;max-width:880px;width:100%;border:0.5px solid var(--border);border-radius:14px;overflow:hidden;animation:fadeUp .7s .4s ease both}
+.dash-bar{background:var(--surface);padding:.75rem 1rem;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--border)}
+.dot{width:10px;height:10px;border-radius:50%}
+.dash-url{flex:1;text-align:center;font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.dash-body{background:var(--deep);padding:1.25rem}
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.kpi{background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:.75rem}
+.kpi-l{font-size:10px;color:var(--muted);margin-bottom:4px}
+.kpi-v{font-size:18px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:-.5px}
+.kpi-d{font-size:10px;margin-top:2px}
+.dash-lower{display:grid;grid-template-columns:2fr 1fr;gap:8px}
+.dash-card{background:var(--surface);border:0.5px solid var(--border);border-radius:8px;padding:.875rem}
+.dash-card-title{font-size:10px;color:var(--muted);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em}
+.bar-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+.bar-lbl{font-size:10px;color:var(--muted);width:28px}
+.bar-track{flex:1;height:5px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.bar-fill{height:100%;border-radius:3px;background:var(--violet)}
+.bar-val{font-size:10px;color:var(--slate);width:44px;text-align:right;font-family:'JetBrains Mono',monospace}
+.act-item{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:0.5px solid var(--border)}
+.act-item:last-child{border-bottom:none}
+.act-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.act-text{font-size:10px;color:var(--slate);flex:1}
+.act-time{font-size:9px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+/* LOGOS */
+.logos{padding:2.5rem 2rem;border-top:0.5px solid var(--border);text-align:center}
+.logos-lbl{font-size:11px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:1.5rem}
+.logos-row{display:flex;gap:3rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.logo-co{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--muted);opacity:.4;letter-spacing:-.3px}
+
+/* SECTIONS */
+.section{padding:6rem 2rem;max-width:1100px;margin:0 auto}
+.section-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);margin-bottom:1rem}
+.section-h2{font-family:'Syne',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:700;letter-spacing:-2px;line-height:1.1;color:var(--snow);margin-bottom:1.25rem}
+.section-h2 span{color:var(--violet)}
+.section-sub{font-size:16px;font-weight:300;color:var(--slate);max-width:520px;line-height:1.7}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--border);border:0.5px solid var(--border);border-radius:14px;overflow:hidden;margin-top:4rem}
+.feat-card{background:var(--deep);padding:2rem;transition:background .2s;position:relative}
+.feat-card:hover{background:var(--surface)}
+.feat-icon{width:40px;height:40px;background:var(--violet-dim);border:0.5px solid rgba(124,58,237,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;font-size:18px}
+.feat-title{font-family:'Syne',sans-serif;font-size:17px;font-weight:600;color:var(--snow);margin-bottom:.5rem;letter-spacing:-.3px}
+.feat-desc{font-size:14px;color:var(--slate);line-height:1.6}
+.feat-tag{display:inline-block;margin-top:1rem;font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 8px;border-radius:4px;background:var(--violet-dim);color:var(--lavender);border:0.5px solid rgba(124,58,237,.2)}
+
+/* AI SECTION */
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.ai-steps{display:flex;flex-direction:column;gap:10px;margin-top:1.5rem}
+.ai-step{font-size:14px;color:var(--slate);display:flex;gap:10px;align-items:flex-start}
+.ai-step-n{color:var(--violet);font-weight:500;flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:13px}
+.ai-demo{background:var(--surface);border:0.5px solid var(--border);border-radius:12px;overflow:hidden}
+.ai-demo-head{padding:.75rem 1rem;background:var(--surface2);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:8px}
+.ai-demo-title{font-size:12px;color:var(--slate)}
+.ai-badge{font-size:10px;padding:2px 8px;border-radius:3px;background:var(--violet-dim);color:var(--lavender)}
+.ai-demo-body{padding:1.25rem}
+.ai-prompt{background:var(--deep);border:0.5px solid var(--border);border-radius:6px;padding:.75rem 1rem;font-size:13px;color:var(--slate);margin-bottom:.75rem;font-style:italic}
+.ai-prompt::before{content:'→ ';color:var(--violet);font-style:normal}
+.ai-result{border:0.5px solid var(--border);border-radius:6px;overflow:hidden}
+.ai-result-head{padding:.5rem .75rem;background:var(--surface2);font-size:10px;color:var(--muted);display:flex;justify-content:space-between}
+.ai-result-head span:last-child{color:var(--emerald)}
+.ai-tbl{width:100%;font-size:11px;font-family:'JetBrains Mono',monospace}
+.ai-tbl th{padding:5px 8px;background:var(--surface2);color:var(--muted);font-weight:400;text-align:left}
+.ai-tbl td{padding:5px 8px;color:var(--slate);border-top:0.5px solid var(--border)}
+.ai-tbl td:last-child{color:var(--snow)}
+.ai-total{padding:.75rem;background:var(--surface2);display:flex;justify-content:space-between;align-items:center}
+.ai-total-label{font-size:12px;color:var(--muted)}
+.ai-total-val{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--violet)}
+
+/* PRICING */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:4rem}
+.p-card{background:var(--surface);border:0.5px solid var(--border);border-radius:14px;padding:2rem;transition:border-color .2s;position:relative}
+.p-card:hover{border-color:var(--border-v)}
+.p-card.featured{border-color:var(--violet);background:linear-gradient(145deg,rgba(124,58,237,.07) 0%,var(--surface) 55%)}
+.p-pop{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--violet);color:#fff;font-size:10px;font-weight:500;letter-spacing:.04em;padding:3px 14px;border-radius:0 0 6px 6px}
+.p-tier{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.p-price{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;letter-spacing:-2px;color:var(--snow);margin-bottom:.25rem}
+.p-price sub{font-size:18px;color:var(--slate);font-weight:400;letter-spacing:0}
+.p-price span{font-size:14px;color:var(--muted);font-weight:400}
+.p-desc{font-size:13px;color:var(--slate);margin-bottom:1.5rem;line-height:1.5}
+.p-divider{border:none;border-top:0.5px solid var(--border);margin-bottom:1.25rem}
+.p-features{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:1.75rem}
+.p-features li{font-size:13px;color:var(--slate);display:flex;gap:8px;align-items:flex-start}
+.p-features li::before{content:'✓';color:var(--emerald);flex-shrink:0;font-weight:500}
+.p-features li.off::before{content:'–';color:var(--muted)}
+.btn-p-solid{width:100%;padding:11px;background:var(--violet);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-p-solid:hover{background:var(--violet-hi)}
+.btn-p-outline{width:100%;padding:11px;background:transparent;color:var(--slate);border:0.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:400;cursor:pointer;transition:all .2s}
+.btn-p-outline:hover{border-color:var(--border-v);color:var(--snow)}
+
+/* TESTIMONIALS */
+.testi-wrap{background:var(--surface);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);padding:5rem 2rem}
+.testi-inner{max-width:1100px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-top:3rem}
+.t-card{background:var(--deep);border:0.5px solid var(--border);border-radius:12px;padding:1.5rem}
+.t-stars{color:var(--amber);font-size:12px;margin-bottom:1rem;letter-spacing:2px}
+.t-quote{font-size:14px;color:var(--slate);line-height:1.7;margin-bottom:1.25rem;font-style:italic}
+.t-author{display:flex;align-items:center;gap:10px}
+.t-avatar{width:36px;height:36px;border-radius:50%;background:var(--violet-dim);border:0.5px solid rgba(124,58,237,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--lavender);font-family:'Syne',sans-serif;flex-shrink:0}
+.t-name{font-size:13px;font-weight:500;color:var(--snow)}
+.t-role{font-size:11px;color:var(--muted)}
+
+/* CTA */
+.cta-wrap{text-align:center;padding:8rem 2rem;position:relative;overflow:hidden}
+.cta-glow{position:absolute;width:500px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:600px;margin:0 auto}
+.cta-h2{font-family:'Syne',sans-serif;font-size:clamp(36px,5vw,62px);font-weight:800;letter-spacing:-2px;color:var(--snow);margin-bottom:1rem;line-height:1.1}
+.cta-h2 span{color:var(--violet)}
+.cta-sub{font-size:16px;color:var(--slate);margin-bottom:2.5rem;line-height:1.6;font-weight:300}
+.btn-cta{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;padding:14px 36px;border-radius:8px;background:var(--violet);color:#fff;border:none;cursor:pointer;text-decoration:none;transition:all .2s;display:inline-block}
+.btn-cta:hover{background:var(--violet-hi);transform:translateY(-2px)}
+.cta-note{font-size:12px;color:var(--muted);margin-top:1rem}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:0.5px solid var(--border);padding:3rem 2rem 2rem}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:3rem;margin-bottom:3rem}
+.footer-logo{display:flex;align-items:center;gap:8px;margin-bottom:.75rem}
+.footer-wm{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--snow);letter-spacing:-.3px}
+.footer-wm span{color:var(--violet)}
+.footer-tagline{font-size:13px;color:var(--muted);line-height:1.5;max-width:220px}
+.fc-title{font-size:12px;font-weight:500;color:var(--snow);margin-bottom:.875rem}
+.fc-links{display:flex;flex-direction:column;gap:6px}
+.fc-links a{font-size:13px;color:var(--muted);text-decoration:none;transition:color .2s}
+.fc-links a:hover{color:var(--slate)}
+.footer-bottom{border-top:0.5px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-badges{display:flex;gap:8px}
+.fbadge{font-size:10px;padding:3px 8px;border:0.5px solid var(--border);border-radius:4px;color:var(--muted)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .ai-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .dash-lower{grid-template-columns:1fr}
+  .hero-stats{gap:1.5rem}
+}
+@media(max-width:480px){
+  .footer-top{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 30 30" fill="none">
+      <circle cx="15" cy="15" r="13" stroke="#7c3aed" stroke-width="1.5"/>
+      <path d="M7 15 Q9 9 15 9 Q21 9 23 15" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+      <path d="M7 17 Q9 12 15 12 Q21 12 23 17" stroke="#a78bfa" stroke-width="1" stroke-linecap="round" fill="none" opacity=".7"/>
+      <path d="M8 20 Q10 16 15 16 Q20 16 22 20" stroke="#c4b5fd" stroke-width="1" stroke-linecap="round" fill="none" opacity=".4"/>
+      <circle cx="15" cy="23" r="1.8" fill="#7c3aed"/>
+    </svg>
+    <span class="nav-wordmark">cort<span>e</span>x</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#ai">AI Agent</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#about">About</a>
+  </div>
+  <div class="nav-cta">
+    <a href="#" class="btn-ghost">Sign in</a>
+    <a href="#pricing" class="btn-solid">Start free</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span class="hero-badge-text">AI-powered CRM · Now in Beta</span>
+    </div>
+    <h1 class="hero-h1">
+      The CRM that<br>
+      <span class="accent">thinks</span> <span class="dim">with you.</span>
+    </h1>
+    <p class="hero-sub">
+      Cortex combines AI intelligence with a purpose-built CRM for construction, logistics, and production companies. Close more deals. Build better relationships.
+    </p>
+    <div class="hero-actions">
+      <a href="#pricing" class="btn-hero-p">Start for free →</a>
+      <a href="#ai" class="btn-hero-s">▶ Watch 2-min demo</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-n">2<span>min</span></div>
+        <div class="stat-l">Setup time</div>
+      </div>
+      <div>
+        <div class="stat-n">$<span>99</span></div>
+        <div class="stat-l">Per month, Pro</div>
+      </div>
+      <div>
+        <div class="stat-n">AI<span>+</span></div>
+        <div class="stat-l">Offer generator</div>
+      </div>
+      <div>
+        <div class="stat-n">0<span>%</span></div>
+        <div class="stat-l">Setup fee</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-dash">
+    <div class="dash-bar">
+      <div class="dot" style="background:#ef4444"></div>
+      <div class="dot" style="background:#f59e0b"></div>
+      <div class="dot" style="background:#10b981"></div>
+      <span class="dash-url">app.cortexcrm.io/dashboard</span>
+    </div>
+    <div class="dash-body">
+      <div class="kpi-row">
+        <div class="kpi"><div class="kpi-l">Revenue YTD</div><div class="kpi-v" style="color:#f1f5f9">$284K</div><div class="kpi-d" style="color:#10b981">+18% vs LY</div></div>
+        <div class="kpi"><div class="kpi-l">Active Projects</div><div class="kpi-v" style="color:#f1f5f9">24</div><div class="kpi-d" style="color:#10b981">4 new this week</div></div>
+        <div class="kpi"><div class="kpi-l">Open Offers</div><div class="kpi-v" style="color:#a78bfa">8</div><div class="kpi-d" style="color:#f59e0b">$107K pending</div></div>
+        <div class="kpi"><div class="kpi-l">Conversion Rate</div><div class="kpi-v" style="color:#10b981">68%</div><div class="kpi-d" style="color:#10b981">+5% vs Q3</div></div>
+      </div>
+      <div class="dash-lower">
+        <div class="dash-card">
+          <div class="dash-card-title">Revenue Trend — 6 months</div>
+          <div class="bar-row"><span class="bar-lbl">Dec</span><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><span class="bar-val">$32K</span></div>
+          <div class="bar-row"><span class="bar-lbl">Jan</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-val">$48K</span></div>
+          <div class="bar-row"><span class="bar-lbl">Feb</span><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><span class="bar-val">$41K</span></div>
+          <div class="bar-row"><span class="bar-lbl">Mar</span><div class="bar-track"><div class="bar-fill" style="width:63%"></div></div><span class="bar-val">$67K</span></div>
+          <div class="bar-row"><span class="bar-lbl">Apr</span><div class="bar-track"><div class="bar-fill" style="width:79%"></div></div><span class="bar-val">$84K</span></div>
+          <div class="bar-row"><span class="bar-lbl">May</span><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div><span class="bar-val">$102K</span></div>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">Recent Activity</div>
+          <div class="act-item"><div class="act-dot" style="background:#7c3aed"></div><span class="act-text">Offer #0042 generated via AI</span><span class="act-time">2m</span></div>
+          <div class="act-item"><div class="act-dot" style="background:#10b981"></div><span class="act-text">Payment received · Müller GmbH</span><span class="act-time">1h</span></div>
+          <div class="act-item"><div class="act-dot" style="background:#f59e0b"></div><span class="act-text">Project Beykoz · Status → Active</span><span class="act-time">3h</span></div>
+          <div class="act-item"><div class="act-dot" style="background:#94a3b8"></div><span class="act-text">Meeting tomorrow 09:00 — Atlas Co.</span><span class="act-time">5h</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGOS -->
+<div class="logos">
+  <p class="logos-lbl">Trusted by builders across EMEA</p>
+  <div class="logos-row">
+    <span class="logo-co">Meridian Group</span>
+    <span class="logo-co">BauGruppe AG</span>
+    <span class="logo-co">Atlas Holdings</span>
+    <span class="logo-co">Vantage Build</span>
+    <span class="logo-co">Tiefbau GmbH</span>
+    <span class="logo-co">Nexbridge Co.</span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <p class="section-label">Platform</p>
+  <h2 class="section-h2">Everything you need.<br><span>Nothing you don't.</span></h2>
+  <p class="section-sub">Built for construction, logistics, and production companies who need a CRM that works as hard as they do.</p>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-icon">🧠</div>
+      <div class="feat-title">AI Offer Generator</div>
+      <div class="feat-desc">Describe the job in plain English. Cortex generates a complete, itemized offer in seconds — ready to send as a professional PDF.</div>
+      <span class="feat-tag">Powered by Claude AI</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">👥</div>
+      <div class="feat-title">Customer Management</div>
+      <div class="feat-desc">Full CRM with contact history, activity timeline, notes, and quick actions. Every customer interaction in one place.</div>
+      <span class="feat-tag">CRM Core</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📋</div>
+      <div class="feat-title">Projects & Pipeline</div>
+      <div class="feat-desc">Track every project from first inquiry to final invoice. Status pipeline, budgets, and deadlines — visible at a glance.</div>
+      <span class="feat-tag">Project Management</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📄</div>
+      <div class="feat-title">PDF Offers & Invoices</div>
+      <div class="feat-desc">Professional A4 documents with your company letterhead, auto-numbering, tax calculation, and one-click PDF export.</div>
+      <span class="feat-tag">Document Engine</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Analytics Dashboard</div>
+      <div class="feat-desc">Revenue trends, top customers, conversion rates, open invoices. The numbers that matter, always up to date.</div>
+      <span class="feat-tag">Business Intelligence</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📅</div>
+      <div class="feat-title">Calendar & Tasks</div>
+      <div class="feat-desc">Integrated calendar with appointments and task deadlines. Linked to your projects and customers — no more missed follow-ups.</div>
+      <span class="feat-tag">Productivity</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section class="section" id="ai" style="padding-top:2rem">
+  <div class="ai-grid">
+    <div>
+      <p class="section-label">AI Agent</p>
+      <h2 class="section-h2">From description<br><span>to offer in seconds.</span></h2>
+      <p class="section-sub">Describe the job — Cortex generates a complete, itemized offer. Edit it, send it, convert it to an invoice. All in one place.</p>
+      <div class="ai-steps">
+        <div class="ai-step"><span class="ai-step-n">01</span><span>Describe the job in your own words</span></div>
+        <div class="ai-step"><span class="ai-step-n">02</span><span>AI generates structured line items with pricing</span></div>
+        <div class="ai-step"><span class="ai-step-n">03</span><span>Review, edit, and save as a draft offer</span></div>
+        <div class="ai-step"><span class="ai-step-n">04</span><span>Export as PDF and send — done in under 2 minutes</span></div>
+      </div>
+    </div>
+    <div class="ai-demo">
+      <div class="ai-demo-head">
+        <span class="ai-demo-title">AI Agent — Offer Generator</span>
+        <span class="ai-badge">Claude AI</span>
+      </div>
+      <div class="ai-demo-body">
+        <div class="ai-prompt">Excavation work 8 hours + material transport 5 truck loads of gravel, Warehouse project north site</div>
+        <div class="ai-result">
+          <div class="ai-result-head"><span>Generated offer positions</span><span>✓ Ready</span></div>
+          <table class="ai-tbl">
+            <tr><th>Pos.</th><th>Description</th><th>Qty</th><th>Total</th></tr>
+            <tr><td>1</td><td>Excavation work</td><td>8 hrs</td><td>$1,360</td></tr>
+            <tr><td>2</td><td>Gravel transport</td><td>5 loads</td><td>$450</td></tr>
+            <tr><td>3</td><td>Disposal fee</td><td>flat</td><td>$90</td></tr>
+          </table>
+          <div class="ai-total">
+            <span class="ai-total-label">Total incl. tax</span>
+            <span class="ai-total-val">$2,249</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <p class="section-label">Pricing</p>
+  <h2 class="section-h2">Simple pricing.<br><span>No surprises.</span></h2>
+  <p class="section-sub">Start free. Upgrade when you're ready. Cancel anytime — no questions asked.</p>
+  <div class="pricing-grid">
+    <div class="p-card">
+      <div class="p-tier">Starter · Free</div>
+      <div class="p-price"><sub>$</sub>0<span>/mo</span></div>
+      <div class="p-desc">Perfect for trying Cortex. No credit card required.</div>
+      <hr class="p-divider">
+      <ul class="p-features">
+        <li>Up to 3 active projects</li>
+        <li>5 offers per month</li>
+        <li>Customer management</li>
+        <li>PDF export</li>
+        <li class="off">AI Agent</li>
+        <li class="off">Analytics dashboard</li>
+        <li class="off">Email integration</li>
+        <li class="off">Team members</li>
+      </ul>
+      <button class="btn-p-outline">Get started free</button>
+    </div>
+    <div class="p-card featured">
+      <div class="p-pop">MOST POPULAR</div>
+      <div class="p-tier">Professional · Pro</div>
+      <div class="p-price"><sub>$</sub>99<span>/mo</span></div>
+      <div class="p-desc">For growing businesses. Everything you need to run your CRM at full power.</div>
+      <hr class="p-divider">
+      <ul class="p-features">
+        <li>Unlimited projects</li>
+        <li>Unlimited offers & invoices</li>
+        <li>Full customer management</li>
+        <li>PDF export with company logo</li>
+        <li>AI Agent (offer generator)</li>
+        <li>Full analytics dashboard</li>
+        <li>Email integration (SMTP)</li>
+        <li>Up to 3 team members</li>
+      </ul>
+      <button class="btn-p-solid">Start 7-day free trial</button>
+    </div>
+    <div class="p-card">
+      <div class="p-tier">Enterprise · Scale</div>
+      <div class="p-price"><sub>$</sub>249<span>/mo</span></div>
+      <div class="p-desc">For larger teams that need advanced controls, more users, and dedicated support.</div>
+      <hr class="p-divider">
+      <ul class="p-features">
+        <li>Everything in Pro</li>
+        <li>Up to 15 team members</li>
+        <li>Role-based permissions</li>
+        <li>Priority support (24h SLA)</li>
+        <li>Custom PDF templates</li>
+        <li>API access</li>
+        <li>Dedicated onboarding call</li>
+        <li>Custom integrations</li>
+      </ul>
+      <button class="btn-p-outline">Contact sales</button>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:1.5rem">Need more than 15 users or a custom contract? <a href="#" style="color:var(--lavender);text-decoration:none">Talk to us →</a></p>
+</section>
+
+<!-- TESTIMONIALS -->
+<div class="testi-wrap">
+  <div class="testi-inner">
+    <p class="section-label">Testimonials</p>
+    <h2 class="section-h2">Builders love <span>Cortex.</span></h2>
+    <div class="testi-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"The AI offer generator is a game-changer. What used to take 30 minutes now takes 2. Our close rate went up 40% in the first month."</div>
+        <div class="t-author">
+          <div class="t-avatar">TM</div>
+          <div><div class="t-name">Thomas Müller</div><div class="t-role">Tiefbau GmbH, Düsseldorf</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"Finally a CRM that understands the construction business. The dashboard gives me exactly what I need — no noise, just the numbers that matter."</div>
+        <div class="t-author">
+          <div class="t-avatar">MK</div>
+          <div><div class="t-name">Michael Kraft</div><div class="t-role">Vantage Build, Vienna</div></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <div class="t-quote">"We replaced three tools with Cortex. CRM, offer management, and invoicing — all in one place. Setup took less than a day."</div>
+        <div class="t-author">
+          <div class="t-avatar">SR</div>
+          <div><div class="t-name">Sarah Reinhardt</div><div class="t-role">Atlas Holdings, Zurich</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-wrap">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <h2 class="cta-h2">Ready to <span>outbuild</span><br>the competition?</h2>
+    <p class="cta-sub">Join builders across EMEA who are closing more deals, faster — with a CRM that actually thinks.</p>
+    <a href="#pricing" class="btn-cta">Start for free — no card needed</a>
+    <p class="cta-note">7-day free trial on Pro · Cancel anytime · GDPR compliant</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <svg width="22" height="22" viewBox="0 0 30 30" fill="none">
+            <circle cx="15" cy="15" r="13" stroke="#7c3aed" stroke-width="1.5"/>
+            <path d="M7 15 Q9 9 15 9 Q21 9 23 15" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M7 17 Q9 12 15 12 Q21 12 23 17" stroke="#a78bfa" stroke-width="1" stroke-linecap="round" fill="none" opacity=".7"/>
+            <circle cx="15" cy="22" r="1.5" fill="#7c3aed"/>
+          </svg>
+          <span class="footer-wm">cort<span>e</span>x</span>
+        </div>
+        <p class="footer-tagline">Intelligent CRM for builders across EMEA. Istanbul · Frankfurt · Zurich.</p>
+      </div>
+      <div>
+        <div class="fc-title">Product</div>
+        <div class="fc-links">
+          <a href="#">Features</a>
+          <a href="#">AI Agent</a>
+          <a href="#">Pricing</a>
+          <a href="#">Changelog</a>
+          <a href="#">Roadmap</a>
+        </div>
+      </div>
+      <div>
+        <div class="fc-title">Company</div>
+        <div class="fc-links">
+          <a href="#">About</a>
+          <a href="#">Blog</a>
+          <a href="#">Careers</a>
+          <a href="#">Contact</a>
+          <a href="#">Press</a>
+        </div>
+      </div>
+      <div>
+        <div class="fc-title">Legal</div>
+        <div class="fc-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">GDPR</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Security</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Cortex CRM · cortexcrm.io · All rights reserved</span>
+      <div class="footer-badges">
+        <span class="fbadge">GDPR</span>
+        <span class="fbadge">SOC 2</span>
+        <span class="fbadge">SSL</span>
+        <span class="fbadge">99.9% uptime</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
