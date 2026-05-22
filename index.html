@@ -184,6 +184,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 2rem;height:60px;d
 .btn-cta:hover{background:var(--violet-hi);transform:translateY(-2px)}
 .cta-note{font-size:12px;color:var(--muted);margin-top:1rem}
 
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.about-body{font-size:15px;color:var(--slate);line-height:1.8;margin-top:1.25rem}
+.about-body p{margin-bottom:1rem}
+.about-mission{margin-top:2rem;background:var(--surface2);border-left:3px solid var(--violet);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem}
+.about-mission p{font-size:14px;color:var(--slate);line-height:1.7;margin:0}
+.about-mission strong{color:var(--lavender)}
+.founder-card{background:var(--surface);border:0.5px solid var(--border-v);border-radius:14px;padding:2rem;position:sticky;top:80px}
+.founder-avatar{width:64px;height:64px;border-radius:50%;background:var(--violet-dim);border:1.5px solid rgba(124,58,237,.4);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--lavender);margin-bottom:1.25rem}
+.founder-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--snow);letter-spacing:-.3px;margin-bottom:.25rem}
+.founder-title{font-size:13px;color:var(--slate);line-height:1.5;margin-bottom:.75rem}
+.founder-location{font-size:12px;color:var(--muted);margin-bottom:1.5rem}
+.founder-links{display:flex;flex-direction:column;gap:8px}
+.founder-link{font-size:13px;color:var(--lavender);text-decoration:none;display:flex;align-items:center;gap:6px;padding:8px 12px;border:0.5px solid var(--border-v);border-radius:6px;background:var(--violet-dim);transition:all .2s}
+.founder-link:hover{background:rgba(124,58,237,.2);border-color:var(--violet)}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}.founder-card{position:static}}
+
 /* FOOTER */
 footer{background:var(--surface);border-top:0.5px solid var(--border);padding:3rem 2rem 2rem}
 .footer-inner{max-width:1100px;margin:0 auto}
@@ -258,7 +275,7 @@ footer{background:var(--surface);border-top:0.5px solid var(--border);padding:3r
     </p>
     <div class="hero-actions">
       <a href="https://app.vektocrm.com/register" class="btn-hero-p">Start for free →</a>
-      <a href="#ai" class="btn-hero-s">▶ Watch 2-min demo</a>
+      <a href="mailto:hello@vektocrm.com" class="btn-hero-s">→ Book a demo</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -519,6 +536,42 @@ footer{background:var(--surface);border-top:0.5px solid var(--border);padding:3r
     <p class="cta-note">7-day free trial on Pro · Cancel anytime · GDPR compliant</p>
   </div>
 </div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="about-grid">
+    <div>
+      <p class="section-label">Our Story</p>
+      <h2 class="section-h2">Built out of frustration.<br><span>Refined with purpose.</span></h2>
+      <div class="about-body">
+        <p>Every day, I watched smart companies worldwide drowning in spreadsheets, WhatsApp threads, and disconnected invoicing tools. Construction teams spending more time chasing paperwork than building. Sales managers piecing together offers at midnight in Excel.</p>
+        <p>Vekto started as an internal tool — built to fix exactly that. A CRM that understands how construction, logistics, and production businesses actually work. Fast setup. No fluff. AI where it counts.</p>
+        <p>After seeing it transform how our consulting clients operated, we decided to open it up. Vekto is now available to any team that wants to move faster without sacrificing control.</p>
+      </div>
+      <div class="about-mission">
+        <p><strong>Vekto is part of Peak3</strong> — a Swiss-Turkish IT consulting company with offices in Bern and Istanbul. We build products and solutions for ambitious teams who want technology that works as hard as they do.</p>
+      </div>
+    </div>
+    <div>
+      <div class="founder-card">
+        <div class="founder-avatar">AS</div>
+        <div class="founder-name">Arda Sönmez</div>
+        <div class="founder-title">Founder, Vekto · Managing Partner, Peak3 IT Consulting</div>
+        <div class="founder-location">📍 Bern · Istanbul</div>
+        <div class="founder-links">
+          <a href="https://linkedin.com/in/ardasönmez" class="founder-link" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn ↗
+          </a>
+          <a href="https://peak3-consulting.com.tr" class="founder-link" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            peak3-consulting.com.tr ↗
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- FOOTER -->
 <footer>
